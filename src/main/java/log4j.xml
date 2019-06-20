@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="true">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<param name="threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p - %-26.26c{1} - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ROLL" class="org.apache.log4j.rolling.RollingFileAppender">
+		<param name="file" value="wombat/wombat_foo.log" />
+		<param name="append" value="true" />
+		<param name="encoding" value="UTF-8" />
+		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="wombat/wobmat_foo.%d{yyyy-MM-dd}.log.gz" />
+			<param name="ActiveFileName" value="wombat/wombat_foo.log" />
+		</rollingPolicy>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %C{1}\t%M\t%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="AdministratorEmail" class="org.apache.log4j.net.SMTPAppender">
+		<param name="BufferSize" value="2048" />
+		<param name="SMTPHost" value="smtp.gmail.com" />
+		<param name="From" value="zimoone@gmail.com" />
+		<param name="SMTPPort" value="465" />
+		<param name="SMTPProtocol" value="smtps" />
+		<param name="SMTPUsername" value="zimoone@gmail.com" />
+		<param name="SMTPPassword" value="jase1969" />
+		<!-- param name="Threshold" value="ERROR"/ -->
+		<param name="To" value="simon.elfving@asgardsolutions.net" />
+		<param name="Subject" value="Error in Mobile Timetool Server" />
+		<param name="SMTPDebug" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{yyyy-MM-dd HH:mm:ss,SSS} (%X{remoteAddress}) %-5p %C{1}\t%M\t%m (%X{sessionId})%n" />
+		</layout>
+
+	</appender>
+	
+	<!-- logger name="org.apache.wicket"> <level value="INFO" /> </logger> <logger 
+		name="org.apache.wicket.protocol.http.HttpSessionStore"> <level value="INFO" 
+		/> </logger> <logger name="org.apache.wicket.version"> <level value="INFO" 
+		/> </logger> <logger name="org.apache.wicket.RequestCycle"> <level value="INFO" 
+		/> </logger> <logger name="se.udk.svnrevisioninfo.SvnRevisionInfo"> <level 
+		value="FATAL" /> </logger> <logger name="SvnRevisionInfo"> <level value="FATAL" 
+		/> </logger -->
+
+	<root>
+		<priority value="debug" />
+		<appender-ref ref="ROLL" />
+		<appender-ref ref="console" />
+		<!-- appender-ref ref="AdministratorEmail" / -->
+	</root>
+
+</log4j:configuration>
+
