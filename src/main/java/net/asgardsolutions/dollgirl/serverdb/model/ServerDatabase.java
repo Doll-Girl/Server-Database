@@ -40,7 +40,8 @@ public class ServerDatabase implements IServerDatabase {
 		}
 	}
 
-	private static String dbURL = "jdbc:derby:timetool.db;create=true;user=me;password=mine";
+	private static String dbName = "server.db";
+	private static String dbURL = "jdbc:derby:"+ dbName +";create=true;user=me;password=mine";
 
 	// jdbc Connection
 	private static Connection conn = null;
